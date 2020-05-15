@@ -1,0 +1,39 @@
+{%extends "base.html"%}
+{%block content%}
+<div class="col">
+    <h2>Registro</h2>
+    <!-- formulario -->
+    <form method="POST">
+        {% csrf_token %}
+        <!-- otra forma de pintarlo -->
+        {%for field in form%}
+            <div class="form-group">
+                {{field.label_tag}}
+                {{field}}
+                {%if field.errors%}
+                    {{field.errors}}
+                {%endif%}
+
+            </div>
+        {%endfor%}
+        <!-- 
+             <div class="form-group">
+            {{form.username.label_tag}}
+            {{form.username}}
+        </div>
+
+        <div class="form-group">
+            {{form.email.label_tag}}
+            {{form.email}}
+        </div>
+
+        <div class="form-group">
+            {{form.password.label_tag}}
+            {{form.password}}
+        </div>
+         -->
+        
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+</div>
+{%endblock%}

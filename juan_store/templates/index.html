@@ -1,0 +1,9 @@
+{%extends "base.html"%}
+{%block content%}
+        <div class="col">
+            <h4 class="text-center">{{ mesage }}</h4>
+            {%include 'productos/snippets/search.html'%}
+            {%include "productos/snippets/list.html"%}
+        </div>
+{%endblock%}
+{% load static %}
