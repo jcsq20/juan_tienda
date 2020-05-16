@@ -22,7 +22,7 @@ def index(request):
 
 def login_view(request):
     if request.user.is_authenticated:
-        return redirect(index)
+        return redirect("index")
     if request.method == "POST":
         username = request.POST.get("username")
         pasword = request.POST.get("password")

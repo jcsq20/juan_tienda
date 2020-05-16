@@ -16,7 +16,7 @@ def cart(request):
     #eliminar una session
     #request.session["cart_id"] = None
     return render(request, "carts/cart.html", {
-
+        "cart":cart
     })
 
 def add(request):
