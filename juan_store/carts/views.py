@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .utils import get_or_create_cart
 from productos.models import Producto
 
@@ -22,8 +22,8 @@ def cart(request):
 
 def add(request):
     cart = get_or_create_cart(request)
-    producto = Producto.objects.get(pk=request.POST.get("product_id"))
-
+    producto = get_object_or_404(Producto, pk=request.POST.get("product_id"))#asegurar que muestre el error 404 quiere decir que no es usado un recurso
+    #producto = Producto.objects.get(pk=request.POST.get("product_id"))
     cart.productos.add(producto) #aprovechando la relacion agregamos un objecto a esta misma
 
     return render(request, "carts/add.html", {
@@ -31,9 +31,10 @@ def add(request):
     })
 
 def remove(request):
+    
     cart = get_or_create_cart(request)
-    producto = Producto.objects.get(pk=request.POST.get("product_id"))
-
+    #asegurar que muestre el error 404 quiere decir que no es usado un recurso
+    producto = get_object_or_404(Producto, pk=request.POST.get("product_id"))
     cart.productos.remove(producto)
 
     return redirect("carts:cart")
