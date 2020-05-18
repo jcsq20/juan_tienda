@@ -9,7 +9,7 @@ from django.db.models.signals import pre_save, m2m_changed
 class Cart(models.Model):
     cart_id = models.CharField(max_length=100, null=False, blank=False, unique=True)
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
-    productos = models.ManyToManyField(Producto)
+    productos = models.ManyToManyField(Producto, through='CartProductos')
     subtotal = models.DecimalField(default=0.0, max_digits=8, decimal_places=2)
     total = models.DecimalField(default=0.0, max_digits=8, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -30,6 +30,12 @@ class Cart(models.Model):
     def update_total(self):
         self.total = self.subtotal + (self.subtotal * decimal.Decimal(Cart.FEE))
         self.save()
+
+class CartProductos(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 def set_cart_id(sender, instance, *args, **kwargs):
     if not instance.cart_id:
