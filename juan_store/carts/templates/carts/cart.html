@@ -14,7 +14,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for cp in cart.cartproductos_set.all  %}
+                    {% for cp in cart.productos_related %}
                         {% with producto=cp.producto%}
                             <tr>
                                 <th>{{ forloop.counter }}</th>
