@@ -34,11 +34,26 @@ class Cart(models.Model):
     def productos_related(self):
         return self.cartproductos_set.select_related('producto')
 
+class CartProductosManager(models.Manager):
+    def create_or_update_quantity(self, cart, producto, quantity=1):
+        object, created = self.get_or_create(cart=cart, producto=producto)
+
+        if not created:
+            quantity = object.quantity + quantity
+        object.update_quantity(quantity)
+        return object
+
+
 class CartProductos(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    objects = CartProductosManager()
+    def update_quantity(self, quantity=1):
+        self.quantity = quantity
+        self.save()
 
 def set_cart_id(sender, instance, *args, **kwargs):
     if not instance.cart_id:
