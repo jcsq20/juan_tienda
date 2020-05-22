@@ -15,6 +15,7 @@ urlpatterns = [#registrar las vistas
     path('admin/', admin.site.urls),
     path("productos/", include("productos.urls")),
     path("carrito/", include("carts.urls")),
+    path("orden/", include("orders.urls")),
 ]
 
 if settings.DEBUG:
