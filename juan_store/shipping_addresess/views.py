@@ -1,17 +1,20 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from .models import ShippingAddress
 from .forms import ShippingAddressForm
 # Create your views here.
-class shippingAddressListView(ListView):
+class shippingAddressListView(LoginRequiredMixin, ListView):
+    login_url = "login"
     model = ShippingAddress
     template_name = "shipping_addresses/shipping_addresses.html"
 
     def get_queryset(self):
         return ShippingAddress.objects.filter(user=self.request.user).order_by("-default")
     
-
+@login_required(login_url="login")
 def create(request):
     form = ShippingAddressForm(request.POST or None)
 

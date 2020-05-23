@@ -1,0 +1,23 @@
+<div class="card">
+    <h5 class="card-header"></h5>
+    <div class="card-body">
+        <h5 class="card-tittle"> {{ shipping_addresses.address }}</h5>
+        <div class="card-tittle">
+            Descripcion: {{ shipping_addresses.reference }}
+        </div>
+        <div class="card-tittle">
+            Codigo_postal: {{ shipping_addresses.postal_code }}
+        </div>
+        <div class="mt-2">
+            <a href="#" class="btn btn-info">Editar</a>
+            {% if shipping_addresses.default %}
+                <div class="text-info">
+                    Direccion principal
+                </div>
+            {% else %}
+                <a href="#" class="btn btn-danger">Default</a>
+            {%endif%}
+        </div>
+        
+    </div>
+</div>
