@@ -23,9 +23,8 @@ class Cart(models.Model):
         self.update_subtotal()
         self.update_total()
 
-        order = self.order_set.first()
-        if order:
-            order.update_total()
+        if self.order:
+            self.order.update_total()
     
     def update_subtotal(self):
         self.subtotal = sum([
@@ -39,6 +38,10 @@ class Cart(models.Model):
         
     def productos_related(self):
         return self.cartproductos_set.select_related('producto')
+    
+    @property
+    def order(self):
+        return self.order_set.first()
 
 class CartProductosManager(models.Manager):
     def create_or_update_quantity(self, cart, producto, quantity=1):
@@ -61,6 +64,7 @@ class CartProductos(models.Model):
         self.quantity = quantity
         self.save()
 
+#callback
 def set_cart_id(sender, instance, *args, **kwargs):
     if not instance.cart_id:
         instance.cart_id = str(uuid.uuid4())
