@@ -27,11 +27,20 @@ class Order(models.Model):
     def __str__(self):
         return self.order_id
 
+    def update_total(self):
+        self.total = self.get_total()
+
+    def get_total(self):
+        return self.cart.total + self.shipping_total
+
 #callback
 def set_order_id(sender, instance, *args, **kwars):
     if not instance.order_id:
         instance.order_id = str(uuid.uuid4())
 
+def set_total(sender, instance, *args, **kwars):
+    instance.total = instance.get_total()
 #signal antes de almacenar
 pre_save.connect(set_order_id, sender=Order)
+pre_save.connect(set_total, sender=Order)
 
