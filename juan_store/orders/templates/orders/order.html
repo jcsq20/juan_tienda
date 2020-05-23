@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="col-8">
+    <div class="h3">
+        Revisa tu pedido
+    </div>
+    <div class="card">
+        <div class="card-body">
+            {%for producto in cart.productos.all%}
+                {% include 'orders/snippets/producto.html'%}
+            {%endfor%}
+        </div>
+    </div>
+</div>
 <div class="col">
-    <h2> Orden de compra </h2>
+    {% include 'orders/snippets/resume.html'%}
 </div>
 {%endblock%}
