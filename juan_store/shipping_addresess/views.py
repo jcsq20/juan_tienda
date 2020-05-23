@@ -15,7 +15,7 @@ class shippingAddressListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return ShippingAddress.objects.filter(user=self.request.user).order_by("-default")
-
+#LoginRequired= asegura que el usuario este autenticado, SuccessM..=arroja un mensaje, Update=hereda la info para mostrar
 class shippingAddressUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     login_url = "login"
     model = ShippingAddress
@@ -25,6 +25,11 @@ class shippingAddressUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateV
 
     def get_success_url(self):
         return reverse("shipping_addresses:shipping_addresses")
+    #permite generar validaciones sobre la peticion
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.id != self.get_object().user_id:
+            return redirect("carts:cart")
+        return super(shippingAddressUpdateView, self).dispatch(request, *args, **kwargs)
 
 @login_required(login_url="login")
 def create(request):
