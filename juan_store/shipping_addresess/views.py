@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.views.generic import ListView
 from .models import ShippingAddress
 from .forms import ShippingAddressForm
@@ -12,7 +13,17 @@ class shippingAddressListView(ListView):
     
 
 def create(request):
-    form = ShippingAddressForm()
+    form = ShippingAddressForm(request.POST or None)
+
+    if request.method == "POST" and form.is_valid():
+        shipping_address = form.save(commit=False)
+        shipping_address.user = request.user
+        shipping_address.default = not ShippingAddress.objects.filter(user=request.user).exists()
+        shipping_address.save()
+
+        messages.success(request, "Direccion creada exitosamente")
+        return redirect("shipping_addresses:shipping_addresses")
+
     return render(request,"shipping_addresses/create.html",{
         #contexto
         "form": form,
