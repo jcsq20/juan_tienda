@@ -27,7 +27,6 @@ class ProductoSearchListView(ListView):
     template_name = "productos/search.html"
     
     def get_queryset(self):
-        #aca esta el error
         #filters = Q(titulo__icontains=self.query() | Q(category__titulo__icontains=self.query()))
         filters = Q(categoria__titulo__icontains=self.query()) |Q(titulo__icontains=self.query())
         return Producto.objects.filter(filters)
