@@ -9,7 +9,7 @@
             Codigo_postal: {{ shipping_addresses.postal_code }}
         </div>
         <div class="mt-2">
-            <a href="#" class="btn btn-info">Editar</a>
+            <a href="{% url 'shipping_addresses:update' shipping_addresses.pk %}" class="btn btn-info">Editar</a>
             {% if shipping_addresses.default %}
                 <div class="text-info">
                     Direccion principal
