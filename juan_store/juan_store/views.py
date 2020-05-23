@@ -4,6 +4,7 @@ from django.contrib.auth import login #generar la session
 from django.contrib.auth import logout # cerrar la session
 from django.contrib import messages# mensajes de alerta
 from django.contrib.auth import authenticate #verificar el usuario
+from django.http import HttpResponseRedirect
 
 #from django.contrib.auth.models import User
 from users.models import User
@@ -31,6 +32,8 @@ def login_view(request):
             login(request, user)
             messages.success(request,"Bienvenido %s" %user.username)
             #messages.success(request,"Bienvenido {}" . format(user.username))
+            if request.GET.get("next"): # va conectado con la decoracon apra autenticacion
+                return HttpResponseRedirect(request.GET["next"]) #obtiene la llave y la envia a ese direccion
             return redirect("index")# envia si el formulario esta correcto a index
         else:
             messages.error(request,"Usuario o contraseña no validos")
