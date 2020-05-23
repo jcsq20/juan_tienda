@@ -15,7 +15,8 @@ from .forms import RegisterForm #llamar los formularios
 def index(request):
     productos = Producto.objects.all().order_by("-id")
     return render(request,"index.html",{#este recibe 3 argumentos la peticion, la ruta y el contexto
-        #context
+        #context es para enviar infromacion de la viste al template
+        #nombre_para usar en el template : informacion que trae de la vista
         'mesage': 'Listado de productos',
         "titulo": "Productos",
         "productos": productos,
