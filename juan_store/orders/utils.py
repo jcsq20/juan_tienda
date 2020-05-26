@@ -1,5 +1,6 @@
 from .models import Order
 from django.urls import reverse
+
 def get_or_create_order(cart, request):
     order = cart.order
 
@@ -10,10 +11,10 @@ def get_or_create_order(cart, request):
 
     return order
 
-def breadcrumb(productos=True, addres=False, payment=False, confirmation=False):
+def breadcrumb(productos=True, address=False, payment=False, confirmation=False):
     return [
         {"titulo": "Productos", "active": productos, "url": reverse("orders:order")},
-        {"titulo": "Direccion", "active": addres, "url": reverse("orders:order")},
+        {"titulo": "Direccion", "active": address, "url": reverse("orders:address")},
         {"titulo": "Pago", "active": payment, "url": reverse("orders:order")},
         {"titulo": "Confirmacion", "active": confirmation, "url": reverse("orders:order")},
     ]
