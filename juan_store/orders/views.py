@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
-from .utils import get_or_create_order, breadcrumb
-from .models import Order
-from shipping_addresess.models import ShippingAddress
-from carts.utils import get_or_create_cart
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required #funciona para redireccionar cuando un usuario no esta auntenticado
 
+from .models import Order
+from shipping_addresess.models import ShippingAddress
+
+from carts.utils import get_or_create_cart, destroy_cart
+from .utils import get_or_create_order, breadcrumb, destroy_order
+
 # Create your views here.
+#le dice a django que el usuario debe estar autenticado y si no lo redirecciona a la direccion del parametro
 @login_required(login_url="login")
 def order(request):
     cart = get_or_create_cart(request)
@@ -70,3 +73,19 @@ def confirm(request):
         "breadcrumb":breadcrumb(address=True, confirmation=True),
         "shipping_address":shipping_address,
     })
+
+@login_required(login_url="login")
+def cancel(request):
+    cart = get_or_create_cart(request)
+    order = get_or_create_order(cart, request)
+    
+    if request.user.id != order.user_id:
+        return redirect("carts:cart")
+
+    order.cancel()
+
+    destroy_cart(request)
+    destroy_order(request)
+    
+    messages.error(request, "ordern cancelada")
+    return redirect("index")
