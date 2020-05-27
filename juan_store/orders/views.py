@@ -86,6 +86,22 @@ def cancel(request):
 
     destroy_cart(request)
     destroy_order(request)
-    
+
     messages.error(request, "ordern cancelada")
+    return redirect("index")
+
+@login_required(login_url="login")
+def complete(request):
+    cart = get_or_create_cart(request)
+    order = get_or_create_order(cart, request)
+
+    if request.user.id != order.user_id:
+        return redirect("carts:cart")
+
+    order.complete()
+    destroy_cart(request)
+    destroy_order(request)
+
+    messages.success(request, "compra completada exitosamente")
+
     return redirect("index")

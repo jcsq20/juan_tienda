@@ -51,16 +51,18 @@
         </div>
         <div class="mt-3">
             <div class="card">
-                <div class="card-body">
+                <div class="card-header">
                     {%if cart.productos.all.count > 1%}
-                        <div class="mb-2">
-                            <h2>Productos</h2>
-                        </div>
+                    <div class="mb-2">
+                        <h2><span class="fas fa-list"></span> Productos</h2>
+                    </div>
                     {%else%}
                     <div class="mb-2">
-                        <h2>Producto</h2>
+                        <h2><span class="fas fa-list"></span> Producto</h2>
                     </div>
                     {%endif%}
+                </div>
+                <div class="card-body">
                     {%for producto in cart.productos.all%}
                         {% include 'orders/snippets/producto.html' %}
                     {%endfor%}
@@ -69,7 +71,8 @@
         </div>
     </div>
     <div class="col">
-        {% include "orders/snippets/resume.html" %}
+        {% url 'orders:complete' as next_url%}
+        {% include "orders/snippets/resume.html" with next_url=next_url %}
         <div class="mt-2">
             <a href="{% url 'orders:cancel'%}" class="btn btn-danger"> Cancelar orden</a>
         </div>
