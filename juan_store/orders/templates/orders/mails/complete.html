@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orden completada</title>
+</head>
+<body> 
+    <!-- contenido del correo -->
+    <div class="">
+        <h3>Hola {{ user.username }} tu pedido ha sido enviado <span class="fas fa-check"></span></h3>
+        <div class="mt-3">
+            <div class="card">
+                <div class="car-body">
+                    <div class="h5 font-weight-bold mt-3">
+                        Estado de su Orden: <span class="text-danger"> completado </span>
+                    <div class="h5 font-weight-bold mt-3">
+                        Total: <span class="text-danger">${{order.get_total}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

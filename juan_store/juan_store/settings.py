@@ -126,6 +126,16 @@ USE_L10N = True
 USE_TZ = True
 
 
+#configuracion email
+from decouple import config
+
+EMAIL_HOST = 'smtp.googlemail.com' #esto es para especificar que servicio de #correo usaremos
+EMAIL_PORT = 587#puerto
+EMAIL_HOST_USER ='juancamilosuarezquinones@gmail.com' #correo electrónico principal(para fines de prueba usamos el personal)
+EMAIL_HOST_PASSWORD = config('USER_MAIL_PASSWORD')# contraseña del gmail (.env)
+EMAIL_USE_TLS = True #protocolo
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 

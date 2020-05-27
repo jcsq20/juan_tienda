@@ -8,6 +8,7 @@ from shipping_addresess.models import ShippingAddress
 from carts.utils import get_or_create_cart, destroy_cart
 from .utils import get_or_create_order, breadcrumb, destroy_order
 
+from .mails import Mail
 # Create your views here.
 #le dice a django que el usuario debe estar autenticado y si no lo redirecciona a la direccion del parametro
 @login_required(login_url="login")
@@ -99,6 +100,8 @@ def complete(request):
         return redirect("carts:cart")
 
     order.complete()
+    Mail.send_complete_order(order, request.user)
+
     destroy_cart(request)
     destroy_order(request)
 
