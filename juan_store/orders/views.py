@@ -1,6 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required #funciona para redireccionar cuando un usuario no esta auntenticado
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.views.generic.list import ListView
+
+from django.db.models.query import EmptyQuerySet
 
 from .models import Order
 from shipping_addresess.models import ShippingAddress
@@ -10,6 +16,14 @@ from .utils import get_or_create_order, breadcrumb, destroy_order
 
 from .mails import Mail
 # Create your views here.
+#le dice a django que debe estar autenticado LoginRequiredMixin
+class OrderListView(LoginRequiredMixin, ListView):
+    login_url = "login"
+    template_name = "orders/orders.html"
+
+    def get_queryset(self):
+        return self.request.user.orders_completed()
+
 #le dice a django que el usuario debe estar autenticado y si no lo redirecciona a la direccion del parametro
 @login_required(login_url="login")
 def order(request):
