@@ -6,15 +6,8 @@ from django.db.models.signals import pre_save
 from users.models import User
 from carts.models import Cart
 from shipping_addresess.models import ShippingAddress
+from orders.common import choices, OrderStatus
 # Create your models here.
-
-class OrderStatus(Enum):
-    CREATED = "CREATED" #creado
-    PAYED = "PAYED" #pagado
-    COMPLETED = "COMPLETED" #completado
-    CANCELED = "CANCELED" #cancelado
-
-choices = [ (tag, tag.value) for tag in OrderStatus ]
 
 class Order(models.Model):
     order_id = models.CharField(max_length=100, null=False, blank=False, unique=True)

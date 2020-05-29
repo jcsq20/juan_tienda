@@ -1,7 +1,9 @@
 import uuid,decimal
 from django.db import models
+
 from users.models import User
 from productos.models import Producto
+from orders.common import OrderStatus
 
 from django.db.models.signals import pre_save, m2m_changed, post_save
 
@@ -41,7 +43,7 @@ class Cart(models.Model):
     
     @property
     def order(self):
-        return self.order_set.first()
+        return self.order_set.filter(status=OrderStatus.CREATED).first()
 
 class CartProductosManager(models.Manager):
     def create_or_update_quantity(self, cart, producto, quantity=1):
