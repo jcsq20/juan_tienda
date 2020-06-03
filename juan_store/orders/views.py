@@ -14,6 +14,10 @@ from shipping_addresess.models import ShippingAddress
 from carts.utils import get_or_create_cart, destroy_cart
 from .utils import get_or_create_order, breadcrumb, destroy_order
 
+#decoradores
+from .decorators import validate_cart_and_order
+
+#correo
 from .mails import Mail
 # Create your views here.
 #le dice a django que debe estar autenticado LoginRequiredMixin
@@ -26,10 +30,8 @@ class OrderListView(LoginRequiredMixin, ListView):
 
 #le dice a django que el usuario debe estar autenticado y si no lo redirecciona a la direccion del parametro
 @login_required(login_url="login")
-def order(request):
-    cart = get_or_create_cart(request)
-    order= get_or_create_order(cart, request)
-
+@validate_cart_and_order
+def order(request, cart, order):
     return render(request, 'orders/order.html', {
         "cart": cart,
         'order' : order,
@@ -37,10 +39,8 @@ def order(request):
     })
 
 @login_required(login_url="login")
-def address(request):
-
-    cart = get_or_create_cart(request)
-    order = get_or_create_order(cart,request)
+@validate_cart_and_order
+def address(request, cart, order):
     shipping_address = order.get_or_set_shipping_address()
     can_choose_address = request.user.shippingaddress_set.count() > 1
 
@@ -62,10 +62,8 @@ def select_address(request):
     })
 
 @login_required(login_url="login")
-def check_address(request, pk):
-    cart = get_or_create_cart(request)
-    order = get_or_create_order(cart,request)
-
+@validate_cart_and_order
+def check_address(request, cart, order, pk):
     shipping_address = get_object_or_404(ShippingAddress, pk=pk)
 
     if request.user.id != shipping_address.user_id:
@@ -75,9 +73,8 @@ def check_address(request, pk):
     return redirect("orders:address")
 
 @login_required(login_url="login")
-def confirm(request):
-    cart = get_or_create_cart(request)
-    order = get_or_create_order(cart, request)
+@validate_cart_and_order
+def confirm(request, cart, order):
     shipping_address = order.shipping_address
     
     if shipping_address is None:
@@ -90,9 +87,8 @@ def confirm(request):
     })
 
 @login_required(login_url="login")
-def cancel(request):
-    cart = get_or_create_cart(request)
-    order = get_or_create_order(cart, request)
+@validate_cart_and_order
+def cancel(request,cart, order):
     
     if request.user.id != order.user_id:
         return redirect("carts:cart")
@@ -106,9 +102,8 @@ def cancel(request):
     return redirect("index")
 
 @login_required(login_url="login")
-def complete(request):
-    cart = get_or_create_cart(request)
-    order = get_or_create_order(cart, request)
+@validate_cart_and_order
+def complete(request, cart, order):
 
     if request.user.id != order.user_id:
         return redirect("carts:cart")
