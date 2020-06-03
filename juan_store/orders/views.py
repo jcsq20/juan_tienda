@@ -1,3 +1,5 @@
+import threading #para poner en segundo plano
+
 from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib import messages
@@ -109,7 +111,11 @@ def complete(request, cart, order):
         return redirect("carts:cart")
 
     order.complete()
-    Mail.send_complete_order(order, request.user)
+
+    thread = threading.Thread(target=Mail.send_complete_order, args=(
+        order, request.user
+    ))#target = metodo que se va ejecutar en segundo plano, args = argumentos del metodo 
+    thread.start()#iniciar el thread
 
     destroy_cart(request)
     destroy_order(request)
