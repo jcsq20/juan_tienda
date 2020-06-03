@@ -16,6 +16,13 @@ class User(AbstractUser):
 
     def orders_completed(self):
         return self.order_set.filter(status=OrderStatus.COMPLETED).order_by("-id")
+    
+    def has_shipping_addresses(self):
+        return self.shippingaddress_set.exists()
+    
+    @property
+    def addresses(self):
+        return self.shippingaddress_set.all()
 #proxy model: es un modelo que hereda de otro
 #obligatorioa
 class Cliente(User):
