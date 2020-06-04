@@ -42,7 +42,7 @@
                         <div class="font-weigth-bold">
                             <span>Codigo promocional</span>
                         </div>
-                        <form action="">
+                        <form id="promocode-form" action="{% url 'promo_codes:validate'%}">
                             <input type="text" name="code" value="" class="form-control" placeholder="Codigo promocional">
                         </form>
                     </div>
@@ -78,3 +78,23 @@
         </div>
     </div>
 {%endblock%}
+
+{% block javascript %}
+    <script>
+        const form = document.getElementById("promocode-form")
+
+        form.addEventListener("submit", function(e){
+            e.preventDefault()//prevenimos que haga el submit
+
+            const input = this.code
+            const code = input.value
+            const url = this.action
+
+            fetch(url)
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response.Nombre)
+                })
+        })
+    </script>
+{% endblock %}
