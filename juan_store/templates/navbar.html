@@ -3,6 +3,7 @@
 {%url 'carts:cart' as cart%}
 {%url 'shipping_addresses:shipping_addresses' as shipping_addresses%}
 {%url 'orders:completeds' as completeds%}
+{% url "billing_profiles:create" as billing_profiles%}
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <a href="{% url 'index' %}" class="navbar-brand">Juan_store</a>
     <button type="button" name="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navb">
@@ -25,6 +26,12 @@
                 <li class="nav-item {% if request.path == completeds %}active{% endif %}">
                     <a class="nav-link" href="{{completeds}}">
                         Mis pedidos <span class="fas fa-shipping-fast"></span>
+                    </a>
+                </li>
+
+                <li class="nav-item {% if request.path == billing_profiles %}active{% endif %}">
+                    <a class="nav-link" href="{{billing_profiles}}">
+                        Mis metodos de pago <span class="fab fa-cc-stripe"></span>
                     </a>
                 </li>
             {%endif%}

@@ -18,6 +18,7 @@ urlpatterns = [#registrar las vistas
     path("orden/", include("orders.urls")),
     path("direcciones/", include("shipping_addresess.urls")),
     path("codigos/", include("promo_codes.urls")),
+    path("pagos/", include("billing_profiles.urls")),
 ]
 
 if settings.DEBUG:
