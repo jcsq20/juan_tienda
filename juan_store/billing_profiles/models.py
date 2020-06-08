@@ -22,7 +22,7 @@ class BillingProfile(models.Model):
     token = models.CharField(max_length=50,null=False, blank=False) # 
     card_id = models.CharField(max_length=100,null=False, blank=False)#
     last4 = models.CharField(max_length=4,null=False, blank=False)# ultims 4 dijitos tarjeta
-    brand = models.CharField(max_length=100,null=False, blank=False) # marca tarjeta (Visa, Mastercard)
+    brand = models.CharField(max_length=10,null=False, blank=False) # marca tarjeta (Visa, Mastercard)
     default = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
