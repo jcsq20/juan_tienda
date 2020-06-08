@@ -137,6 +137,9 @@ EMAIL_HOST_USER ='juancamilosuarezquinones@gmail.com' #correo electrónico princ
 EMAIL_HOST_PASSWORD = config('USER_MAIL_PASSWORD')# contraseña del gmail (.env)
 EMAIL_USE_TLS = True #protocolo
 
+#congiruacion Metodos de pago
+STRIPE_PUBLIC_KEY = "pk_test_51GrZgvLGRodbDoleZbPngdLBZ00TG42Y8a6XLR4Gxks7ybBdCDbd9EpL5iGxEFlQRYszNDVqKniqH0LZogYLmg8b00Dzle6liX"
+STRIPE_PRIVATE_KEY = "sk_test_51GrZgvLGRodbDolet7yleReag2Av0mB19MwOe3VAbxvedsCQH68JIoB0TjIAMyvAgO1e8amTr2HKnRxoNv5IelsG00zokbH94l"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
