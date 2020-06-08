@@ -8,7 +8,7 @@ from users.models import User
 from carts.models import Cart
 from promo_codes.models import PromoCode
 from shipping_addresess.models import ShippingAddress
-
+from billing_profiles.models import BillingProfile
 from orders.common import choices, OrderStatus
 # Create your models here.
 
@@ -23,6 +23,8 @@ class Order(models.Model):
     shipping_address = models.ForeignKey(ShippingAddress, null=True, blank=True, on_delete=models.CASCADE)
     promo_code = models.OneToOneField(PromoCode, null=True, blank=True, on_delete=models.CASCADE)
 
+    billing_profile = models.ForeignKey(BillingProfile, null=True, blank=True, on_delete=models.CASCADE)
+
     def __str__(self):
         return self.order_id
 
@@ -34,6 +36,17 @@ class Order(models.Model):
         self.update_total()
         promo_code.use()
 
+    def get_or_set_billing_profile(self):
+        if self.billing_profile:
+            return self.billing_profile
+
+        billing_profile = self.user.billing_profile
+
+        if billing_profile:
+            self.update_billing_profile(billing_profile)
+
+        return billing_profile
+
     def get_or_set_shipping_address(self):
         if self.shipping_address:
             return self.shipping_address
@@ -44,6 +57,11 @@ class Order(models.Model):
             self.update_shipping_address(shipping_address)
 
         return shipping_address
+
+    def update_billing_profile(self, billing_profile):
+        self.billing_profile = billing_profile
+        self.save()
+
 
     def update_shipping_address(self, shipping_address):
         self.shipping_address = shipping_address
