@@ -34,6 +34,8 @@ class OrderListView(LoginRequiredMixin, ListView):
 @login_required(login_url="login")
 @validate_cart_and_order
 def order(request, cart, order):
+    if not cart.has_products():
+        return redirect("carts:cart")
     return render(request, 'orders/order.html', {
         "cart": cart,
         'order' : order,
@@ -43,6 +45,10 @@ def order(request, cart, order):
 @login_required(login_url="login")
 @validate_cart_and_order
 def address(request, cart, order):
+
+    if not cart.has_products():
+        return redirect("carts:cart")
+
     shipping_address = order.get_or_set_shipping_address()
     can_choose_address = request.user.has_shipping_addresses()
 
@@ -77,6 +83,8 @@ def check_address(request, cart, order, pk):
 @login_required(login_url="login")
 @validate_cart_and_order
 def payment(request, cart, order):
+    if not cart.has_products() or order.shipping_address is None:
+        return redirect("carts:cart")
 
     billing_profile = order.get_or_set_billing_profile()
 
@@ -90,6 +98,9 @@ def payment(request, cart, order):
 @login_required(login_url="login")
 @validate_cart_and_order
 def confirm(request, cart, order):
+    if not cart.has_products() or order.shipping_address is None or order.billing_profile is None:
+        return redirect("carts:cart")
+
     shipping_address = order.shipping_address
     
     if shipping_address is None:

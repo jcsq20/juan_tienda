@@ -41,6 +41,10 @@ class Cart(models.Model):
     def productos_related(self):
         return self.cartproductos_set.select_related('producto')
     
+    def has_products(self):
+        return self.productos.exists()
+
+
     @property
     def order(self):
         return self.order_set.filter(status=OrderStatus.CREATED).first()
