@@ -1,5 +1,4 @@
 from stripeAPI.customer import create_customer
-
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -19,11 +18,14 @@ class User(AbstractUser):
     def description(self):
         return "Descripcion para el usuario {}".format(self.username)
 
+    def has_billing_profiles(self):
+        return self.billingprofile_set.exists()
+
     def has_customer(self):
         return self.customer_id is not None
 
     def create_customer_id(self):
-        if not self.customer_id:
+        if not self.has_customer():
             customer = create_customer(self)
             self.customer_id = customer.id
             self.save()
