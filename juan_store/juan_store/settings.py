@@ -86,13 +86,22 @@ WSGI_APPLICATION = 'juan_store.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
+
     'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'juan_store',
-    'USER': 'postgres',
-    'PASSWORD': '123456',
-    'HOST': 'localhost',
-    'PORT': '5432',
+        #conectarse con postgres
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'juan_store',
+        'USER': 'postgres',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        #conectar con Mysql
+        #'ENGINE': 'django.db.backends.mysql',
+        #'NAME': 'juan_store',
+        #'USER': 'root',
+        #'PASSWORD': '123456',
+        #'HOST': 'localhost',
+        #'PORT': '',
     }
 }
 
