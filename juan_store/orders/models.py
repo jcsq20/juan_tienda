@@ -83,8 +83,12 @@ class Order(models.Model):
         if self.promo_code:
             return self.promo_code.discount
         return 0
+   
     def get_total(self):
         return self.cart.total + self.shipping_total - decimal.Decimal(self.get_discount())
+    
+    def description(self):
+        return "compra por ({}) productos".format(self.cart.productos.count())
 
 #callback
 def set_order_id(sender, instance, *args, **kwars):

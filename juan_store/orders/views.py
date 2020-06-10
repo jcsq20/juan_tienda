@@ -12,7 +12,7 @@ from django.db.models.query import EmptyQuerySet
 
 from .models import Order
 from shipping_addresess.models import ShippingAddress
-
+from charges.models import Charge
 from carts.utils import get_or_create_cart, destroy_cart
 from .utils import get_or_create_order, breadcrumb, destroy_order
 
@@ -134,16 +134,16 @@ def complete(request, cart, order):
     if request.user.id != order.user_id:
         return redirect("carts:cart")
 
-    order.complete()
+    charge = Charge.objects.create_charge(order)
+    if charge:
+        order.complete()
+        thread = threading.Thread(target=Mail.send_complete_order, args=(
+            order, request.user
+        ))#target = metodo que se va ejecutar en segundo plano, args = argumentos del metodo 
+        thread.start()#iniciar el thread
+        destroy_cart(request)
+        destroy_order(request)
 
-    thread = threading.Thread(target=Mail.send_complete_order, args=(
-        order, request.user
-    ))#target = metodo que se va ejecutar en segundo plano, args = argumentos del metodo 
-    thread.start()#iniciar el thread
-
-    destroy_cart(request)
-    destroy_order(request)
-
-    messages.success(request, "compra completada exitosamente")
+        messages.success(request, "compra completada exitosamente")
 
     return redirect("index")
