@@ -1,5 +1,9 @@
 <<<<<<< refs/remotes/origin/master
+<<<<<<< refs/remotes/origin/master
 web: gunicorn juan_store.wsgi --log-file -
 =======
 web: gunicorn juan_stor.wsgi --log-file -
 >>>>>>> configuraciones para heroku
+=======
+web: gunicorn juan_store.wsgi --log-file -
+>>>>>>> correccion configuraciones para heroku
