@@ -182,4 +182,5 @@ MEDIA_URL= "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 #se agrega para subir a heroku
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" #cargar javascript y demas en el seervidor
+#STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" #cargar javascript y demas en el seervidor
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'

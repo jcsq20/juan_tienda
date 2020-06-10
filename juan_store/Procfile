@@ -1,1 +1,1 @@
-web: gunicorn juan_stor.wsgi --log-file -
+web: gunicorn juan_store.wsgi --log-file -
