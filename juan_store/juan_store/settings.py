@@ -185,6 +185,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 #se agrega para subir a heroku
 <<<<<<< refs/remotes/origin/master
 <<<<<<< refs/remotes/origin/master
+<<<<<<< refs/remotes/origin/master
 #STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" #cargar javascript y demas en el seervidor
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 =======
@@ -194,3 +195,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" 
 #STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" #cargar javascript y demas en el seervidor
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 >>>>>>> correccion configuraciones para heroku
+=======
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" #cargar javascript y demas en el seervidor
+#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+>>>>>>> ok
