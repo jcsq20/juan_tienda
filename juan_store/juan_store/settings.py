@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "carts",
     "orders",
     "promo_codes",
+    "charges",
     "billing_profiles",
     "shipping_addresess",
     'django.contrib.admin',
@@ -85,12 +86,12 @@ WSGI_APPLICATION = 'juan_store.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME': 'juan_store',
-       'USER': 'postgres',
-       'PASSWORD': '123456',
-       'HOST': 'localhost',
-       'PORT': '5432',
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'juan_store',
+    'USER': 'postgres',
+    'PASSWORD': '123456',
+    'HOST': 'localhost',
+    'PORT': '5432',
     }
 }
 
