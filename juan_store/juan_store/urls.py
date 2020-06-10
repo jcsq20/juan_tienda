@@ -19,7 +19,9 @@ urlpatterns = [#registrar las vistas
     path("direcciones/", include("shipping_addresess.urls")),
     path("codigos/", include("promo_codes.urls")),
     path("pagos/", include("billing_profiles.urls")),
-]
+]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)#para heroku
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

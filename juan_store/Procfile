@@ -1,0 +1,1 @@
+web: gunicorn juan_stor.wsgi --log-file -

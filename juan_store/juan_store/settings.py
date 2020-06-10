@@ -23,11 +23,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '!w5n+=z@l!z*t^i-b9*xqshvth-ht2=&ayif!6)-t45aj$b+dg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#configuracion escritorio
+#DEBUG = True
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
+#configuracion para Heroku
+DEBUG = False
 
-
+ALLOWED_HOSTS = ["*"]
 # Application definition
 
 
@@ -57,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #para heroku se agrega la siguiente
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'juan_store.urls'
@@ -85,7 +90,8 @@ WSGI_APPLICATION = 'juan_store.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
+#para escritorio
+""" DATABASES = {
 
     'default': {
         #conectarse con postgres
@@ -103,7 +109,16 @@ DATABASES = {
         #'HOST': 'localhost',
         #'PORT': '',
     }
+} """
+#para HEROKU
+import dj_database_url
+from decouple import config
+DATABASES = {
+    "default": dj_database_url.config(
+        default = config("DATABASE_URL")
+    )
 }
+
 
 
 # Password validation
@@ -155,10 +170,16 @@ STRIPE_PRIVATE_KEY = "sk_test_51GrZgvLGRodbDolet7yleReag2Av0mB19MwOe3VAbxvedsCQH
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS =(
     os.path.join(BASE_DIR, "static"),
 )
 
 MEDIA_URL= "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+#se agrega para subir a heroku
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" #cargar javascript y demas en el seervidor
