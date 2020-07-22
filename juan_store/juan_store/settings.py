@@ -61,7 +61,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #para heroku se agrega la siguiente
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    #"whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'juan_store.urls'
@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'juan_store.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 #para escritorio
-""" DATABASES = {
+DATABASES = {
 
     'default': {
         #conectarse con postgres
@@ -109,8 +109,9 @@ WSGI_APPLICATION = 'juan_store.wsgi.application'
         #'HOST': 'localhost',
         #'PORT': '',
     }
-} """
+} 
 #para HEROKU
+"""
 import dj_database_url
 from decouple import config
 DATABASES = {
@@ -118,6 +119,7 @@ DATABASES = {
         default = config("DATABASE_URL")
     )
 }
+"""
 
 
 
@@ -182,25 +184,5 @@ STATICFILES_DIRS =(
 MEDIA_URL= "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-#se agrega para subir a heroku
-<<<<<<< refs/remotes/origin/master
-<<<<<<< refs/remotes/origin/master
-<<<<<<< refs/remotes/origin/master
-<<<<<<< refs/remotes/origin/master
-#STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" #cargar javascript y demas en el seervidor
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-=======
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" #cargar javascript y demas en el seervidor
->>>>>>> configuraciones para heroku
-=======
-#STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" #cargar javascript y demas en el seervidor
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
->>>>>>> correccion configuraciones para heroku
-=======
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" #cargar javascript y demas en el seervidor
-#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
->>>>>>> ok
-=======
-#STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" #cargar javascript y demas en el seervidor
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
->>>>>>> configuracion haroku2
+
+
