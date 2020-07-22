@@ -32,7 +32,8 @@ ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
-    #"jet",
+    "jet.dashboard",
+    "jet",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -81,9 +82,13 @@ TEMPLATES = [
         },
     },
 ]
+''' from django.conf import global_settings
 
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    'django.core.context_processors.request',
+)
 WSGI_APPLICATION = 'juan_store.wsgi.application'
-
+ '''
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
