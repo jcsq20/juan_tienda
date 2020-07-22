@@ -164,6 +164,10 @@ STRIPE_PRIVATE_KEY = "sk_test_51GrZgvLGRodbDolet7yleReag2Av0mB19MwOe3VAbxvedsCQH
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 
+from django.conf import global_settings
+
+
+
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = '/static/'
 
