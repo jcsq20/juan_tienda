@@ -8,6 +8,7 @@ from . import views
 from productos.views import ProductoListView
 
 urlpatterns = [#registrar las vistas 
+    #path('jet/', include('jet.urls', 'jet')),
     path("", ProductoListView.as_view(), name="index"),
     path("usuarios/login", views.login_view, name="login"),
     path("usuarios/registro", views.registro, name="registro"),

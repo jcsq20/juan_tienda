@@ -24,18 +24,22 @@ SECRET_KEY = '!w5n+=z@l!z*t^i-b9*xqshvth-ht2=&ayif!6)-t45aj$b+dg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #configuracion escritorio
-#DEBUG = True
+DEBUG = True
 
-#ALLOWED_HOSTS = []
-#configuracion para Heroku
-DEBUG = False
+ALLOWED_HOSTS = []
 
-ALLOWED_HOSTS = ["*"]
 # Application definition
 
 
 INSTALLED_APPS = [
-    'productos',
+    #"jet",
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    "productos",
     "categorias",
     "users",
     "carts",
@@ -44,12 +48,6 @@ INSTALLED_APPS = [
     "charges",
     "billing_profiles",
     "shipping_addresess",
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
 ]
 
 MIDDLEWARE = [
@@ -110,16 +108,7 @@ DATABASES = {
         #'PORT': '',
     }
 } 
-#para HEROKU
-"""
-import dj_database_url
-from decouple import config
-DATABASES = {
-    "default": dj_database_url.config(
-        default = config("DATABASE_URL")
-    )
-}
-"""
+
 
 
 
@@ -145,10 +134,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-#LANGUAGE_CODE = 'es'
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-co'
+#LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'
+#TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
